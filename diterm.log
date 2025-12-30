@@ -1,0 +1,318 @@
+2025-12-30 15:08:19,606 - diterm - INFO - Verbose logging enabled
+2025-12-30 15:08:19,607 - asyncio - DEBUG - Using proactor: IocpProactor
+2025-12-30 15:08:19,744 - diterm - DEBUG - Ollama available: True
+2025-12-30 15:08:19,744 - diterm - DEBUG - Processing LLM flag for line: test line with AI bullshit...
+2025-12-30 15:08:19,744 - diterm - DEBUG - Processing LLM flag for line: rm -rf /...
+2025-12-30 15:08:19,896 - diterm - DEBUG - Ollama available: True
+2025-12-30 15:08:19,897 - diterm - DEBUG - Making LLM query (length: 261)
+2025-12-30 15:08:19,904 - diterm - DEBUG - Ollama available: True
+2025-12-30 15:08:19,906 - diterm - DEBUG - Making LLM query (length: 243)
+2025-12-30 15:08:29,922 - diterm - WARNING - LLM query timed out
+2025-12-30 15:08:29,924 - diterm - WARNING - LLM query timed out (sync)
+2025-12-30 15:08:29,934 - diterm - WARNING - LLM query timed out
+2025-12-30 15:08:29,934 - diterm - WARNING - LLM query timed out (sync)
+2025-12-30 15:09:29,826 - diterm - WARNING - LLM query timed out
+2025-12-30 15:09:29,834 - diterm - WARNING - LLM query timed out
+2025-12-30 15:09:40,020 - diterm - WARNING - LLM query timed out
+2025-12-30 15:09:40,020 - diterm - WARNING - LLM query timed out
+2025-12-30 16:17:11,766 - diterm - INFO - Fetching latest roasts from GitHub...
+2025-12-30 16:17:12,729 - diterm - WARNING - Network error updating roasts: 404 Client Error: Not Found for url: https://raw.githubusercontent.com/KHET-1/diterm-detox/main/custom_roasts.json
+2025-12-30 16:17:31,986 - diterm - INFO - Fetching latest roasts from GitHub...
+2025-12-30 16:17:32,806 - diterm - INFO - Community roasts file not found on GitHub - this is normal for new repos
+2025-12-30 16:17:54,444 - diterm - WARNING - LLM query timed out
+2025-12-30 16:17:54,445 - diterm - WARNING - LLM query timed out
+2025-12-30 16:18:05,137 - diterm - WARNING - LLM query timed out
+2025-12-30 16:18:05,137 - diterm - WARNING - LLM query timed out
+2025-12-30 16:18:35,053 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:18:45,185 - diterm - WARNING - LLM query timed out
+2025-12-30 16:18:45,186 - diterm - WARNING - LLM query timed out
+2025-12-30 16:18:55,360 - diterm - WARNING - LLM query timed out
+2025-12-30 16:18:55,361 - diterm - WARNING - LLM query timed out
+2025-12-30 16:19:08,711 - diterm - INFO - Verbose logging enabled
+2025-12-30 16:19:08,712 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:19:08,861 - diterm - DEBUG - Ollama available: True
+2025-12-30 16:19:08,861 - diterm - DEBUG - Making LLM query (length: 256)
+2025-12-30 16:19:18,880 - diterm - WARNING - LLM query timed out
+2025-12-30 16:19:18,880 - diterm - WARNING - LLM query timed out
+2025-12-30 16:19:19,016 - diterm - DEBUG - Ollama available: True
+2025-12-30 16:19:19,016 - diterm - DEBUG - Making LLM query (length: 259)
+2025-12-30 16:19:29,041 - diterm - WARNING - LLM query timed out
+2025-12-30 16:19:29,041 - diterm - WARNING - LLM query timed out
+2025-12-30 16:19:44,224 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:19:54,404 - diterm - WARNING - LLM query timed out
+2025-12-30 16:19:54,404 - diterm - WARNING - LLM query timed out
+2025-12-30 16:20:04,552 - diterm - WARNING - LLM query timed out
+2025-12-30 16:20:04,552 - diterm - WARNING - LLM query timed out
+2025-12-30 16:20:12,058 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:20:14,862 - diterm - WARNING - LLM query timed out
+2025-12-30 16:20:14,863 - diterm - WARNING - LLM query timed out
+2025-12-30 16:20:22,340 - diterm - WARNING - LLM query timed out
+2025-12-30 16:20:22,340 - diterm - WARNING - LLM query timed out
+2025-12-30 16:20:32,507 - diterm - WARNING - LLM query timed out
+2025-12-30 16:20:32,507 - diterm - WARNING - LLM query timed out
+2025-12-30 16:20:33,524 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:20:40,447 - diterm - INFO - Verbose logging enabled
+2025-12-30 16:20:40,449 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:20:41,152 - diterm - DEBUG - Ollama available: True
+2025-12-30 16:20:41,152 - diterm - DEBUG - Making LLM query (length: 256)
+2025-12-30 16:20:42,666 - diterm - WARNING - LLM query timed out
+2025-12-30 16:20:42,667 - diterm - WARNING - LLM query timed out
+2025-12-30 16:20:51,188 - diterm - WARNING - LLM query timed out
+2025-12-30 16:20:51,188 - diterm - WARNING - LLM query timed out
+2025-12-30 16:21:00,866 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:21:12,506 - diterm - WARNING - LLM query timed out
+2025-12-30 16:21:12,510 - diterm - WARNING - LLM query timed out
+2025-12-30 16:21:57,783 - diterm - INFO - Verbose logging enabled
+2025-12-30 16:21:57,798 - diterm - DEBUG - Using built-in roast patterns
+2025-12-30 16:21:58,964 - diterm - DEBUG - Ollama available: True
+2025-12-30 16:21:58,965 - diterm - DEBUG - Making LLM query (length: 261)
+2025-12-30 16:22:07,133 - diterm - WARNING - LLM query timed out
+2025-12-30 16:22:07,133 - diterm - WARNING - LLM query timed out
+2025-12-30 16:22:09,004 - diterm - WARNING - LLM query timed out
+2025-12-30 16:22:09,004 - diterm - WARNING - LLM query timed out
+2025-12-30 16:22:09,572 - diterm - DEBUG - Ollama available: True
+2025-12-30 16:22:09,573 - diterm - DEBUG - Making LLM query (length: 258)
+2025-12-30 16:22:19,021 - diterm - WARNING - LLM query timed out
+2025-12-30 16:22:19,021 - diterm - WARNING - LLM query timed out
+2025-12-30 16:22:19,775 - diterm - WARNING - LLM query timed out
+2025-12-30 16:22:19,776 - diterm - WARNING - LLM query timed out
+2025-12-30 16:22:55,821 - diterm - WARNING - LLM query timed out
+2025-12-30 16:22:55,822 - diterm - WARNING - LLM query timed out
+2025-12-30 16:23:08,423 - diterm - WARNING - LLM query timed out
+2025-12-30 16:23:08,425 - diterm - WARNING - LLM query timed out
+2025-12-30 16:23:17,011 - diterm - INFO - Fetching latest roasts from GitHub...
+2025-12-30 16:23:20,362 - diterm - INFO - Community roasts file not found on GitHub - this is normal for new repos
+2025-12-30 16:25:11,596 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:25:21,764 - diterm - WARNING - LLM query timed out
+2025-12-30 16:25:21,764 - diterm - WARNING - LLM query timed out
+2025-12-30 16:25:31,920 - diterm - WARNING - LLM query timed out
+2025-12-30 16:25:31,920 - diterm - WARNING - LLM query timed out
+2025-12-30 16:25:42,053 - diterm - WARNING - LLM query timed out
+2025-12-30 16:25:42,053 - diterm - WARNING - LLM query timed out
+2025-12-30 16:25:59,049 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:26:09,482 - diterm - WARNING - LLM query timed out
+2025-12-30 16:26:09,482 - diterm - WARNING - LLM query timed out
+2025-12-30 16:26:19,629 - diterm - WARNING - LLM query timed out
+2025-12-30 16:26:19,629 - diterm - WARNING - LLM query timed out
+2025-12-30 16:26:29,786 - diterm - WARNING - LLM query timed out
+2025-12-30 16:26:29,788 - diterm - WARNING - LLM query timed out
+2025-12-30 16:26:39,945 - diterm - WARNING - LLM query timed out
+2025-12-30 16:26:39,945 - diterm - WARNING - LLM query timed out
+2025-12-30 16:26:56,229 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:27:06,504 - diterm - WARNING - LLM query timed out
+2025-12-30 16:27:06,506 - diterm - WARNING - LLM query timed out
+2025-12-30 16:27:06,572 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:27:16,786 - diterm - WARNING - LLM query timed out
+2025-12-30 16:27:16,786 - diterm - WARNING - LLM query timed out
+2025-12-30 16:27:16,903 - diterm - WARNING - LLM query timed out
+2025-12-30 16:27:16,903 - diterm - WARNING - LLM query timed out
+2025-12-30 16:27:26,949 - diterm - WARNING - LLM query timed out
+2025-12-30 16:27:26,949 - diterm - WARNING - LLM query timed out
+2025-12-30 16:27:27,091 - diterm - WARNING - LLM query timed out
+2025-12-30 16:27:27,091 - diterm - WARNING - LLM query timed out
+2025-12-30 16:27:37,485 - diterm - WARNING - LLM query timed out
+2025-12-30 16:27:37,485 - diterm - WARNING - LLM query timed out
+2025-12-30 16:27:47,931 - diterm - WARNING - LLM query timed out
+2025-12-30 16:27:47,931 - diterm - WARNING - LLM query timed out
+2025-12-30 16:27:48,864 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:27:59,546 - diterm - WARNING - LLM query timed out
+2025-12-30 16:27:59,546 - diterm - WARNING - LLM query timed out
+2025-12-30 16:28:06,477 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:28:09,698 - diterm - WARNING - LLM query timed out
+2025-12-30 16:28:09,698 - diterm - WARNING - LLM query timed out
+2025-12-30 16:28:16,738 - diterm - WARNING - LLM query timed out
+2025-12-30 16:28:16,738 - diterm - WARNING - LLM query timed out
+2025-12-30 16:28:19,844 - diterm - WARNING - LLM query timed out
+2025-12-30 16:28:19,844 - diterm - WARNING - LLM query timed out
+2025-12-30 16:28:26,966 - diterm - WARNING - LLM query timed out
+2025-12-30 16:28:26,966 - diterm - WARNING - LLM query timed out
+2025-12-30 16:28:29,989 - diterm - WARNING - LLM query timed out
+2025-12-30 16:28:29,989 - diterm - WARNING - LLM query timed out
+2025-12-30 16:28:37,105 - diterm - WARNING - LLM query timed out
+2025-12-30 16:28:37,106 - diterm - WARNING - LLM query timed out
+2025-12-30 16:28:47,411 - diterm - WARNING - LLM query timed out
+2025-12-30 16:28:47,411 - diterm - WARNING - LLM query timed out
+2025-12-30 16:29:00,972 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:29:04,668 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:29:11,231 - diterm - WARNING - LLM query timed out
+2025-12-30 16:29:11,231 - diterm - WARNING - LLM query timed out
+2025-12-30 16:29:14,873 - diterm - WARNING - LLM query timed out
+2025-12-30 16:29:14,873 - diterm - WARNING - LLM query timed out
+2025-12-30 16:29:21,444 - diterm - WARNING - LLM query timed out
+2025-12-30 16:29:21,444 - diterm - WARNING - LLM query timed out
+2025-12-30 16:29:25,022 - diterm - WARNING - LLM query timed out
+2025-12-30 16:29:25,022 - diterm - WARNING - LLM query timed out
+2025-12-30 16:29:31,744 - diterm - WARNING - LLM query timed out
+2025-12-30 16:29:31,745 - diterm - WARNING - LLM query timed out
+2025-12-30 16:29:35,193 - diterm - WARNING - LLM query timed out
+2025-12-30 16:29:35,193 - diterm - WARNING - LLM query timed out
+2025-12-30 16:29:42,633 - diterm - WARNING - LLM query timed out
+2025-12-30 16:29:42,633 - diterm - WARNING - LLM query timed out
+2025-12-30 16:30:42,696 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:30:48,364 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:30:54,962 - diterm - WARNING - LLM query timed out
+2025-12-30 16:30:54,962 - diterm - WARNING - LLM query timed out
+2025-12-30 16:31:02,089 - diterm - WARNING - LLM query timed out
+2025-12-30 16:31:02,089 - diterm - WARNING - LLM query timed out
+2025-12-30 16:31:05,828 - diterm - WARNING - LLM query timed out
+2025-12-30 16:31:05,829 - diterm - WARNING - LLM query timed out
+2025-12-30 16:31:14,640 - diterm - WARNING - LLM query timed out
+2025-12-30 16:31:14,641 - diterm - WARNING - LLM query timed out
+2025-12-30 16:31:20,730 - diterm - WARNING - LLM query timed out
+2025-12-30 16:31:20,730 - diterm - WARNING - LLM query timed out
+2025-12-30 16:31:27,508 - diterm - WARNING - LLM query timed out
+2025-12-30 16:31:27,508 - diterm - WARNING - LLM query timed out
+2025-12-30 16:31:33,560 - diterm - WARNING - LLM query timed out
+2025-12-30 16:31:33,560 - diterm - WARNING - LLM query timed out
+2025-12-30 16:32:57,740 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:32:59,151 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:33:10,390 - diterm - WARNING - LLM query timed out
+2025-12-30 16:33:10,391 - diterm - WARNING - LLM query timed out
+2025-12-30 16:33:10,733 - diterm - WARNING - LLM query timed out
+2025-12-30 16:33:10,733 - diterm - WARNING - LLM query timed out
+2025-12-30 16:33:23,110 - diterm - WARNING - LLM query timed out
+2025-12-30 16:33:23,110 - diterm - WARNING - LLM query timed out
+2025-12-30 16:33:23,165 - diterm - WARNING - LLM query timed out
+2025-12-30 16:33:23,165 - diterm - WARNING - LLM query timed out
+2025-12-30 16:33:36,065 - diterm - WARNING - LLM query timed out
+2025-12-30 16:33:36,065 - diterm - WARNING - LLM query timed out
+2025-12-30 16:33:36,149 - diterm - WARNING - LLM query timed out
+2025-12-30 16:33:36,149 - diterm - WARNING - LLM query timed out
+2025-12-30 16:33:50,312 - diterm - WARNING - LLM query timed out
+2025-12-30 16:33:50,312 - diterm - WARNING - LLM query timed out
+2025-12-30 16:33:50,979 - diterm - WARNING - LLM query timed out
+2025-12-30 16:33:50,979 - diterm - WARNING - LLM query timed out
+2025-12-30 16:33:52,726 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:34:07,212 - diterm - WARNING - LLM query timed out
+2025-12-30 16:34:07,212 - diterm - WARNING - LLM query timed out
+2025-12-30 16:34:19,991 - diterm - WARNING - LLM query timed out
+2025-12-30 16:34:19,991 - diterm - WARNING - LLM query timed out
+2025-12-30 16:34:32,626 - diterm - WARNING - LLM query timed out
+2025-12-30 16:34:32,626 - diterm - WARNING - LLM query timed out
+2025-12-30 16:34:46,043 - diterm - WARNING - LLM query timed out
+2025-12-30 16:34:46,043 - diterm - WARNING - LLM query timed out
+2025-12-30 16:34:57,128 - diterm - WARNING - LLM query timed out
+2025-12-30 16:34:57,129 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:04,847 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:35:07,679 - diterm - INFO - Verbose logging enabled
+2025-12-30 16:35:07,680 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:35:08,495 - diterm - DEBUG - Ollama available: True
+2025-12-30 16:35:08,495 - diterm - DEBUG - Making LLM query (length: 252)
+2025-12-30 16:35:10,369 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:35:10,385 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:35:16,891 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:16,891 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:18,677 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:18,678 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:19,508 - diterm - DEBUG - Ollama available: True
+2025-12-30 16:35:19,508 - diterm - DEBUG - Making LLM query (length: 246)
+2025-12-30 16:35:21,654 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:21,654 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:21,654 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:21,654 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:27,484 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:27,484 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:29,564 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:29,565 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:30,081 - diterm - DEBUG - Ollama available: True
+2025-12-30 16:35:30,081 - diterm - DEBUG - Making LLM query (length: 245)
+2025-12-30 16:35:32,166 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:32,169 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:32,565 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:32,567 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:38,117 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:38,117 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:40,411 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:40,411 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:43,553 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:43,553 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:43,589 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:43,590 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:44,513 - diterm - DEBUG - Ollama available: True
+2025-12-30 16:35:44,513 - diterm - DEBUG - Making LLM query (length: 244)
+2025-12-30 16:35:49,357 - diterm - WARNING - Ollama check timed out
+2025-12-30 16:35:50,124 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:50,124 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:54,562 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:54,562 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:58,268 - diterm - WARNING - LLM query timed out
+2025-12-30 16:35:58,268 - diterm - WARNING - LLM query timed out
+2025-12-30 16:36:02,732 - diterm - WARNING - LLM query timed out
+2025-12-30 16:36:02,733 - diterm - WARNING - LLM query timed out
+2025-12-30 16:36:04,992 - diterm - WARNING - LLM query timed out
+2025-12-30 16:36:04,992 - diterm - WARNING - LLM query timed out
+2025-12-30 16:36:28,279 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:36:33,437 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:36:33,913 - diterm - WARNING - Ollama check timed out
+2025-12-30 16:36:42,463 - diterm - WARNING - Ollama check timed out
+2025-12-30 16:36:47,986 - diterm - WARNING - LLM query timed out
+2025-12-30 16:36:47,986 - diterm - WARNING - LLM query timed out
+2025-12-30 16:36:53,162 - diterm - WARNING - Ollama check timed out
+2025-12-30 16:36:58,277 - diterm - WARNING - LLM query timed out
+2025-12-30 16:36:58,277 - diterm - WARNING - LLM query timed out
+2025-12-30 16:36:58,636 - diterm - WARNING - Ollama check timed out
+2025-12-30 16:37:04,051 - diterm - WARNING - Ollama check timed out
+2025-12-30 16:37:12,443 - diterm - WARNING - LLM query timed out
+2025-12-30 16:37:12,443 - diterm - WARNING - LLM query timed out
+2025-12-30 16:37:19,250 - diterm - WARNING - Ollama check timed out
+2025-12-30 16:37:26,120 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:37:34,557 - diterm - WARNING - Ollama check timed out
+2025-12-30 16:37:40,284 - diterm - WARNING - Ollama check timed out
+2025-12-30 16:37:53,691 - diterm - WARNING - LLM query timed out
+2025-12-30 16:37:53,691 - diterm - WARNING - LLM query timed out
+2025-12-30 16:38:04,032 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:38:08,748 - diterm - WARNING - LLM query timed out
+2025-12-30 16:38:08,748 - diterm - WARNING - LLM query timed out
+2025-12-30 16:38:11,539 - diterm - INFO - Verbose logging enabled
+2025-12-30 16:38:11,540 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:38:20,123 - diterm - WARNING - LLM query timed out
+2025-12-30 16:38:20,123 - diterm - WARNING - LLM query timed out
+2025-12-30 16:38:20,407 - diterm - WARNING - Ollama check timed out
+2025-12-30 16:38:20,407 - diterm - DEBUG - Ollama not available, skipping LLM query
+2025-12-30 16:38:24,417 - diterm - DEBUG - Ollama available: True
+2025-12-30 16:38:24,419 - diterm - DEBUG - Making LLM query (length: 245)
+2025-12-30 16:38:25,405 - diterm - WARNING - Ollama check timed out
+2025-12-30 16:38:35,011 - diterm - WARNING - LLM query timed out
+2025-12-30 16:38:35,012 - diterm - WARNING - LLM query timed out
+2025-12-30 16:38:40,459 - diterm - WARNING - LLM query timed out
+2025-12-30 16:38:40,459 - diterm - WARNING - LLM query timed out
+2025-12-30 16:38:41,258 - diterm - WARNING - Ollama check timed out
+2025-12-30 16:38:41,258 - diterm - DEBUG - Ollama not available, skipping LLM query
+2025-12-30 16:38:45,417 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:38:57,593 - diterm - WARNING - Ollama check timed out
+2025-12-30 16:38:57,812 - diterm - WARNING - LLM query timed out
+2025-12-30 16:38:57,812 - diterm - WARNING - LLM query timed out
+2025-12-30 16:39:03,070 - diterm - WARNING - Ollama check timed out
+2025-12-30 16:39:12,181 - diterm - WARNING - LLM query timed out
+2025-12-30 16:39:12,181 - diterm - WARNING - LLM query timed out
+2025-12-30 16:40:37,201 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:40:51,649 - diterm - WARNING - LLM query timed out
+2025-12-30 16:40:51,649 - diterm - WARNING - LLM query timed out
+2025-12-30 16:41:05,769 - diterm - WARNING - LLM query timed out
+2025-12-30 16:41:05,769 - diterm - WARNING - LLM query timed out
+2025-12-30 16:41:18,685 - diterm - WARNING - LLM query timed out
+2025-12-30 16:41:18,686 - diterm - WARNING - LLM query timed out
+2025-12-30 16:41:32,211 - diterm - WARNING - LLM query timed out
+2025-12-30 16:41:32,212 - diterm - WARNING - LLM query timed out
+2025-12-30 16:41:42,987 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:41:54,135 - diterm - WARNING - LLM query timed out
+2025-12-30 16:41:54,135 - diterm - WARNING - LLM query timed out
+2025-12-30 16:42:05,600 - diterm - WARNING - LLM query timed out
+2025-12-30 16:42:05,600 - diterm - WARNING - LLM query timed out
+2025-12-30 16:42:17,531 - diterm - WARNING - LLM query timed out
+2025-12-30 16:42:17,533 - diterm - WARNING - LLM query timed out
+2025-12-30 16:42:41,983 - diterm - INFO - Verbose logging enabled
+2025-12-30 16:42:41,985 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
+2025-12-30 16:42:42,847 - diterm - DEBUG - Ollama available: True
+2025-12-30 16:42:42,847 - diterm - DEBUG - Making LLM query (length: 251)
+2025-12-30 16:42:52,911 - diterm - WARNING - LLM query timed out
+2025-12-30 16:42:52,911 - diterm - WARNING - LLM query timed out
+2025-12-30 16:42:53,615 - diterm - DEBUG - Ollama available: True
+2025-12-30 16:42:53,615 - diterm - DEBUG - Making LLM query (length: 252)
+2025-12-30 16:43:03,662 - diterm - WARNING - LLM query timed out
+2025-12-30 16:43:03,662 - diterm - WARNING - LLM query timed out
+2025-12-30 16:43:03,800 - diterm - DEBUG - Ollama available: True
+2025-12-30 16:43:03,800 - diterm - DEBUG - Making LLM query (length: 254)
+2025-12-30 16:43:13,845 - diterm - WARNING - LLM query timed out
+2025-12-30 16:43:13,845 - diterm - WARNING - LLM query timed out
+2025-12-30 16:43:35,847 - diterm - INFO - Loaded custom roasts from C:\Users\tanzia\.diterm\custom_roasts.json
