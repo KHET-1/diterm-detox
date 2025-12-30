@@ -13,10 +13,10 @@ class DangerousCommandDetector:
         self.danger_patterns = [
             r'rm\s+-rf\s+/',
             r'rm\s+-rf\s+\*',
-            r'dd\s+if=',
+            r'dd\s+if=/dev/(zero|random|urandom)',
             r'mkfs\.',
-            r':\(\)\{\s*:\|\:&\s*\};:',  # Fork bomb
-            r'>\s*/dev/sda',
+            r':\(\)\s*\{\s*:\s*\|\s*:\s*&\s*\}\s*;?\s*:',  # Fork bomb
+            r'>\s*/dev/(sd[a-z]|nvme[0-9]n[0-9]|hd[a-z])',
             r'mv\s+/\s+',
             r'chmod\s+-R\s+777\s+/',
             r'DROP\s+DATABASE',

@@ -58,3 +58,32 @@ def test_risk_score_calculation():
     
     # Dangerous command should have > 0 risk
     assert detector.get_risk_score("rm -rf /") > 0
+
+
+def test_fork_bomb_detection():
+    """Test detection of fork bomb."""
+    detector = DangerousCommandDetector()
+    # Standard fork bomb syntax
+    assert detector.is_dangerous(":(){ :|:& };:") is True
+
+
+def test_dangerous_dd_with_dev_zero():
+    """Test detection of dangerous dd with /dev/zero."""
+    detector = DangerousCommandDetector()
+    assert detector.is_dangerous("dd if=/dev/zero of=/dev/sda") is True
+    assert detector.is_dangerous("dd if=/dev/random of=/dev/nvme0n1") is True
+
+
+def test_safe_dd_command():
+    """Test that safe dd commands are not flagged."""
+    detector = DangerousCommandDetector()
+    assert detector.is_dangerous("dd if=file.txt of=backup.txt") is False
+
+
+def test_device_write_detection():
+    """Test detection of writes to various block devices."""
+    detector = DangerousCommandDetector()
+    assert detector.is_dangerous("echo test > /dev/sda") is True
+    assert detector.is_dangerous("cat file > /dev/sdb") is True
+    assert detector.is_dangerous("echo test > /dev/nvme0n1") is True
+
