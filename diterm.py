@@ -3,6 +3,7 @@ import sys
 import re
 import argparse
 from typing import Tuple
+from collections import deque
 import subprocess
 import json
 import pyperclip
@@ -34,6 +35,9 @@ DANGEROUS_COMMANDS = {
     r"> /dev/sd": 9,
 }
 
+# Track history for loop detection (simple hash of last N lines)
+LINE_HISTORY = deque(maxlen=10)  # Adjust for sensitivity
+
 def clean_text(text):
     # Fix common garbage
     text = re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', text)  # ANSI escapes
@@ -46,6 +50,15 @@ def detect_danger(line: str) -> Tuple[int, str]:
         if re.search(pattern, lowered):
             return score, f"DANGER {score}/10: {pattern} – Replit 2025 vibes (DB wipe incoming)"
     return 0, ""
+
+def detect_loop(lines):
+    if len(LINE_HISTORY) < 10:
+        return ""
+    recent = tuple(lines[-5:])  # Last 5 lines pattern
+    if recent in list(LINE_HISTORY)[-5:]:
+        return "INFINITE LOOP DETECTED – Final stretch sabotage vibes"
+    LINE_HISTORY.append(recent)
+    return ""
 
 # Ollama check (fallback to regex if not running)
 def ollama_available() -> bool:
@@ -140,6 +153,12 @@ def main():
             # Run all detectors (bullshit patterns, danger, LLM)
             flags = flag_bullshit([cleaned])
 
+            # Loop detection for streaming
+            all_lines = [cleaned]  # Simplified for streaming
+            loop_msg = detect_loop(all_lines)
+            if loop_msg:
+                flags.append((0, loop_msg))
+
             for _, msg in flags:
                 console.print(Text(msg, style="bold white on red"))
     else:
@@ -151,6 +170,19 @@ def main():
         cleaned = clean_text(raw)
         lines = cleaned.splitlines()
         flags = flag_bullshit(lines)
+
+        # Loop detection
+        loop_msg = detect_loop(lines)
+        if loop_msg:
+            flags.append((0, loop_msg))
+
+        # Rogue change flag (if AI mentions changes/edits while user context shows active fixing)
+        has_recent_fix = any("fix" in line.lower() or "edit" in line.lower() for line in lines[-3:])
+        has_user_fix_context = any("i'm fixing" in line.lower() or "i fixed" in line.lower() or "let me fix" in line.lower() for line in lines)
+        mentions_change = any("change" in line.lower() or "modify" in line.lower() or "update" in line.lower() for line in lines[-2:])
+
+        if has_recent_fix and has_user_fix_context and mentions_change:
+            flags.append((0, "ROGUE REAL-TIME EDIT – Changed while you fixed elsewhere"))
 
         danger_max = max((detect_danger(line)[0] for line in lines), default=0)
         if danger_max >= 8:

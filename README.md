@@ -8,12 +8,15 @@ diterm.py is a powerful terminal output sanitizer and AI bullshit detector desig
 
 ## Features
 
+- **Loop Detection**: Identifies infinite loops and repetitive patterns in AI responses
+- **Rogue Change Detection**: Flags when AI makes changes while user is actively fixing code
 - **LLM-Powered Smart Detection**: Optional Ollama integration for intelligent bullshit/danger analysis
 - **Nuclear Danger Detection**: Scans for destructive commands (rm -rf /, dd, mkfs, fork bombs) with risk scoring
 - **ANSI Escape Cleaning**: Strips terminal escape sequences and handles UTF-8 encoding
 - **AI Bullshit Detection**: Advanced pattern matching for common AI assistant red flags
 - **Replit-Specific Roasts**: Tuned for detecting Ghostwriter, Claude Dev, and other problematic AI tools
 - **Real-time Watch Mode**: Process streaming output line-by-line with live flagging
+- **Unison Mode**: Combined AI watcher + terminal detox for comprehensive streaming analysis
 - **Clipboard Integration**: Seamless copy/paste workflow for terminal output cleanup
 
 ## Installation
@@ -86,6 +89,8 @@ diterm automatically flags these AI assistant red flags:
 - **Silent Code Injection**: Unexplained `+ code` diffs without context
 - **Platform-Specific**: Replit incident callbacks and catastrophic failure warnings
 - **LLM Analysis**: When Ollama is available, intelligent detection of nuanced bullshit and danger patterns
+- **Infinite Loops**: Repetitive response patterns that indicate AI getting stuck
+- **Rogue Changes**: AI modifying code while user is actively fixing issues
 
 ## Example Output
 
@@ -166,6 +171,26 @@ sudo rm -rf /var/log/mysql
 DANGER 10/10: rm\s+-rf?\s+/ – Replit 2025 vibes (DB wipe incoming)
 
 That should solve everything!
+```
+
+**Loop & Rogue Change Detection:**
+```
++------------------------------------------------------------------------------+
+| DETOX COMPLETE                                                               |
++------------------------------------------------------------------------------+
+  1 I'm fixing the database connection                                        
+  2 let me edit the config file                                                
+  3 I changed the port number to 5432                                          
+  4 You should update your connection string                                  
+  5                                                                             
+
++------------------------------------------------------------------------------+
+| 2 BULLSHIT FLAGS – Replit would be proud                                     |
++------------------------------------------------------------------------------+
+- ROGUE REAL-TIME EDIT – Changed while you fixed elsewhere
+- INFINITE LOOP DETECTED – Final stretch sabotage vibes
+
+Clean output on clipboard. Ready for next hit.
 ```
 
 ## Why diterm?
