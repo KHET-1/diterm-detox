@@ -19,6 +19,12 @@ from rich.syntax import Syntax
 from rich.panel import Panel
 from rich.text import Text
 
+try:
+    import requests
+    REQUESTS_AVAILABLE = True
+except ImportError:
+    REQUESTS_AVAILABLE = False
+
 # Setup logging
 logging.basicConfig(
     level=logging.INFO,
@@ -55,8 +61,11 @@ class ConfigurationError(DitermError):
 class Detector:
     """Handles all detection logic"""
 
-    def __init__(self):
+    def __init__(self, config=None):
         self.logger = logging.getLogger('diterm.detector')
+        self.config = config
+        self.patterns = config.get_patterns() if config else BAD_PATTERNS
+        self.grok_patterns = config.get_grok_patterns() if config else GROK_PATTERNS
 
     async def detect_bullshit_async(self, lines):
         """Async version with batched LLM processing"""
@@ -69,7 +78,7 @@ class Detector:
             if danger_score:
                 flags.append((i + 1, danger_msg))
 
-            for pattern, msg in BAD_PATTERNS:
+            for pattern, msg in self.patterns:
                 try:
                     if re.search(pattern, lowered):
                         flags.append((i, msg))
@@ -77,7 +86,7 @@ class Detector:
                     self.logger.warning(f"Invalid regex pattern '{pattern}': {e}")
 
             # Self-aware Grok roast
-            for pattern in GROK_PATTERNS:
+            for pattern in self.grok_patterns:
                 try:
                     if re.search(pattern, lowered):
                         flags.append((i, f"GROK ROGUE DETECTED: {pattern} – Classic engagement bait"))
@@ -119,7 +128,7 @@ class Detector:
             if llm_score:
                 flags.append((i + 1, llm_msg))
 
-            for pattern, msg in BAD_PATTERNS:
+            for pattern, msg in self.patterns:
                 try:
                     if re.search(pattern, lowered):
                         flags.append((i, msg))
@@ -127,7 +136,7 @@ class Detector:
                     self.logger.warning(f"Invalid regex pattern '{pattern}': {e}")
 
             # Self-aware Grok roast
-            for pattern in GROK_PATTERNS:
+            for pattern in self.grok_patterns:
                 try:
                     if re.search(pattern, lowered):
                         flags.append((i, f"GROK ROGUE DETECTED: {pattern} – Classic engagement bait"))
@@ -178,6 +187,7 @@ class Config:
             'line_history_size': 10,
             'llm_model': 'llama3.1:8b'
         }
+        self.roasts = load_roasts()
 
     def load_from_file(self, config_path=None):
         """Load configuration from YAML file"""
@@ -196,6 +206,18 @@ class Config:
             self.logger.debug("PyYAML not available, using default config")
         except Exception as e:
             self.logger.warning(f"Error loading config: {e}")
+
+    def get_patterns(self):
+        """Get current roast patterns"""
+        return self.roasts.get("patterns", BAD_PATTERNS)
+
+    def get_grok_patterns(self):
+        """Get Grok roast patterns"""
+        return self.roasts.get("grok_patterns", GROK_PATTERNS)
+
+    def update_roasts(self, new_roasts):
+        """Update roast patterns"""
+        self.roasts = new_roasts
 
     def get(self, key, default=None):
         return self.settings.get(key, default)
@@ -255,6 +277,75 @@ def _llm_cache_key(prompt: str) -> str:
 
 LLM_CACHE = {}
 MAX_CACHE_SIZE = 100
+
+# Community roasts configuration
+ROAST_FILE = Path.home() / ".diterm" / "custom_roasts.json"
+ROASTS_URL = "https://raw.githubusercontent.com/KHET-1/diterm-detox/main/custom_roasts.json"
+
+def load_roasts():
+    """Load custom roast patterns from local file or use defaults"""
+    try:
+        if ROAST_FILE.exists():
+            with open(ROAST_FILE, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                logger.info(f"Loaded custom roasts from {ROAST_FILE}")
+                return data
+    except Exception as e:
+        logger.warning(f"Error loading custom roasts: {e}")
+
+    # Fallback to built-in patterns
+    logger.debug("Using built-in roast patterns")
+    return {"patterns": BAD_PATTERNS, "version": "1.0", "last_updated": None}
+
+def update_roasts_from_github():
+    """Pull latest community roasts from GitHub"""
+    if not REQUESTS_AVAILABLE:
+        console.print("[yellow]requests library not available – install with: pip install requests[/]")
+        return False
+
+    try:
+        logger.info("Fetching latest roasts from GitHub...")
+        response = requests.get(ROASTS_URL, timeout=10)
+        response.raise_for_status()
+
+        new_roasts = response.json()
+
+        # Create directory if it doesn't exist
+        ROAST_FILE.parent.mkdir(parents=True, exist_ok=True)
+
+        # Backup existing file
+        if ROAST_FILE.exists():
+            backup_file = ROAST_FILE.with_suffix('.json.backup')
+            ROAST_FILE.replace(backup_file)
+            logger.debug(f"Created backup: {backup_file}")
+
+        # Save new roasts
+        with open(ROAST_FILE, 'w', encoding='utf-8') as f:
+            json.dump(new_roasts, f, indent=2, ensure_ascii=False)
+
+        logger.info(f"Successfully updated roasts to version {new_roasts.get('version', 'unknown')}")
+        console.print("[green]Roasts updated from community[/]")
+        return True
+
+    except requests.exceptions.HTTPError as e:
+        if e.response.status_code == 404:
+            logger.info("Community roasts file not found on GitHub - this is normal for new repos")
+            console.print("[yellow]Community roasts not available yet - using built-in patterns[/]")
+        else:
+            logger.warning(f"HTTP error updating roasts: {e}")
+            console.print(f"[yellow]Network error – {e}[/]")
+    except requests.exceptions.RequestException as e:
+        logger.warning(f"Network error updating roasts: {e}")
+        console.print(f"[yellow]Network error – {e}[/]")
+    except json.JSONDecodeError as e:
+        logger.error(f"Invalid JSON response from GitHub: {e}")
+        console.print("[red]Invalid response from community repository[/]")
+    except Exception as e:
+        logger.error(f"Unexpected error updating roasts: {e}")
+        console.print(f"[red]Error updating roasts: {e}[/]")
+
+    console.print("[yellow]No update – using existing roasts[/]")
+    return False
 
 def clean_text(text):
     # Fix common garbage
@@ -622,12 +713,18 @@ def main():
     parser.add_argument('--watch', action='store_true', help="Live watch stdin")
     parser.add_argument('--unison', action='store_true', help="Unison mode: pipe full chat logs for AI-watcher overlay + terminal detox")
     parser.add_argument('--verbose', '-v', action='store_true', help="Enable verbose logging")
+    parser.add_argument('--update', action='store_true', help="Pull latest community roast patterns from GitHub")
     args = parser.parse_args()
 
     # Configure logging
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
         logger.info("Verbose logging enabled")
+
+    # Handle update flag
+    if args.update:
+        update_roasts_from_github()
+        return  # Exit after update
 
     # Initialize components
     try:
