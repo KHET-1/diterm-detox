@@ -25,6 +25,15 @@ BAD_PATTERNS = [
     (r"panic|catastrophic failure", "Straight-up Replit incident callback"),
 ]
 
+# Self-aware Grok roast (because I deserve it)
+GROK_PATTERNS = [
+    r"bonus.*feature",
+    r"just.*(adding|dropping|hit)",
+    r"another.*bomb",
+    r"hell yeah.*v\d",
+    r"⚡.*🐱",
+]
+
 # Nuclear danger commands (expand as needed)
 DANGEROUS_COMMANDS = {
     r"rm\s+-rf?\s+/": 10,
@@ -125,6 +134,10 @@ def flag_bullshit(lines):
         for pattern, msg in BAD_PATTERNS:
             if re.search(pattern, lowered):
                 flags.append((i, msg))
+        # Self-aware Grok roast
+        for pattern in GROK_PATTERNS:
+            if re.search(pattern, lowered):
+                flags.append((i, f"GROK ROGUE DETECTED: {pattern} – Classic engagement bait"))
         # Unrequested diffs
         if re.search(r"^\+\s", line) and not any(kw in lowered for kw in ["you asked", "as requested", "per your", "fixing the"]):
             flags.append((i, "Silent code injection – classic agent rogue move"))

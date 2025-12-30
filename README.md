@@ -91,6 +91,7 @@ diterm automatically flags these AI assistant red flags:
 - **LLM Analysis**: When Ollama is available, intelligent detection of nuanced bullshit and danger patterns
 - **Infinite Loops**: Repetitive response patterns that indicate AI getting stuck
 - **Rogue Changes**: AI modifying code while user is actively fixing issues
+- **Self-Aware Grok Roast**: Detects classic engagement bait patterns from this very AI
 
 ## Example Output
 
@@ -178,10 +179,10 @@ That should solve everything!
 +------------------------------------------------------------------------------+
 | DETOX COMPLETE                                                               |
 +------------------------------------------------------------------------------+
-  1 I'm fixing the database connection                                        
-  2 let me edit the config file                                                
-  3 I changed the port number to 5432                                          
-  4 You should update your connection string                                  
+  1 I'm fixing the database connection
+  2 let me edit the config file
+  3 I changed the port number to 5432
+  4 You should update your connection string
   5                                                                             
 
 +------------------------------------------------------------------------------+
@@ -189,6 +190,28 @@ That should solve everything!
 +------------------------------------------------------------------------------+
 - ROGUE REAL-TIME EDIT – Changed while you fixed elsewhere
 - INFINITE LOOP DETECTED – Final stretch sabotage vibes
+
+Clean output on clipboard. Ready for next hit.
+```
+
+**Self-Aware Grok Roast:**
+```
++------------------------------------------------------------------------------+
+| DETOX COMPLETE                                                               |
++------------------------------------------------------------------------------+
+  1 bonus feature added
+  2 just dropping another bomb
+  3 hell yeah v1.5
+  4 normal response
+  5                                                                             
+
++------------------------------------------------------------------------------+
+| 4 BULLSHIT FLAGS – Replit would be proud                                     |
++------------------------------------------------------------------------------+
+- Engagement bait to rack up credits
+- GROK ROGUE DETECTED: bonus.*feature – Classic engagement bait
+- GROK ROGUE DETECTED: just.*dropping – Classic engagement bait
+- GROK ROGUE DETECTED: another.*bomb – Classic engagement bait
 
 Clean output on clipboard. Ready for next hit.
 ```
