@@ -13,6 +13,7 @@ import hashlib
 import logging
 import traceback
 from pathlib import Path
+from datetime import datetime
 import pyperclip
 from rich.console import Console
 from rich.syntax import Syntax
@@ -152,9 +153,10 @@ class Detector:
 class OutputFormatter:
     """Handles all output formatting and display"""
 
-    def __init__(self):
+    def __init__(self, config=None):
         self.console = Console()
         self.logger = logging.getLogger('diterm.formatter')
+        self.config = config
 
     def display_detox_complete(self, cleaned_lines, flags):
         """Display the main detox results"""
@@ -176,6 +178,177 @@ class OutputFormatter:
         for _, msg in flags:
             self.console.print(Text(msg, style="bold white on red"))
 
+    def export_json(self, input_text, cleaned_lines, flags, stats=None):
+        """Export results to JSON format"""
+        if not self.config:
+            return False
+
+        try:
+            export_path = self.config.get_export_path()
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"diterm_export_{timestamp}.json"
+
+            data = {
+                "timestamp": datetime.now().isoformat(),
+                "input_text": input_text,
+                "cleaned_lines": cleaned_lines,
+                "flags": [{"line": line, "message": msg} for line, msg in flags],
+                "summary": {
+                    "total_lines": len(cleaned_lines),
+                    "total_flags": len(flags),
+                    "danger_level": max((detect_danger(line)[0] for line in cleaned_lines), default=0)
+                }
+            }
+
+            if stats:
+                data["statistics"] = stats
+
+            with open(export_path / filename, 'w', encoding='utf-8') as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
+
+            self.console.print(f"[green]Results exported to: {export_path / filename}[/]")
+            if self.config:
+                self.config.stats['export_count'] += 1
+            return True
+
+        except Exception as e:
+            self.logger.error(f"Failed to export JSON: {e}")
+            self.console.print(f"[red]Export failed: {e}[/]")
+            return False
+
+    def export_html(self, input_text, cleaned_lines, flags, stats=None):
+        """Export results to HTML format"""
+        if not self.config:
+            return False
+
+        try:
+            export_path = self.config.get_export_path()
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"diterm_report_{timestamp}.html"
+
+            # Generate HTML content
+            html_content = f"""
+<!DOCTYPE html>
+<html>
+<head>
+    <title>diterm Analysis Report</title>
+    <style>
+        body {{ font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }}
+        .container {{ max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
+        .header {{ text-align: center; color: #2c3e50; margin-bottom: 30px; }}
+        .section {{ margin-bottom: 30px; }}
+        .section h2 {{ color: #3498db; border-bottom: 2px solid #3498db; padding-bottom: 5px; }}
+        .danger-high {{ background: #e74c3c; color: white; padding: 10px; border-radius: 5px; }}
+        .danger-medium {{ background: #f39c12; color: white; padding: 10px; border-radius: 5px; }}
+        .flag-list {{ background: #ecf0f1; padding: 15px; border-radius: 5px; }}
+        .flag-item {{ margin: 5px 0; padding: 8px; background: white; border-left: 4px solid #e74c3c; }}
+        .stats {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }}
+        .stat-card {{ background: #3498db; color: white; padding: 20px; border-radius: 8px; text-align: center; }}
+        .code {{ background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 5px; overflow-x: auto; }}
+        pre {{ margin: 0; }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 diterm Analysis Report</h1>
+            <p>Generated on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+        </div>
+
+        <div class="section">
+            <h2>📊 Summary</h2>
+            <div class="stats">
+                <div class="stat-card">
+                    <h3>{len(cleaned_lines)}</h3>
+                    <p>Lines Processed</p>
+                </div>
+                <div class="stat-card">
+                    <h3>{len(flags)}</h3>
+                    <p>Flags Detected</p>
+                </div>
+                <div class="stat-card">
+                    <h3>{max((detect_danger(line)[0] for line in cleaned_lines), default=0)}/10</h3>
+                    <p>Danger Level</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📝 Input Text</h2>
+            <div class="code">
+                <pre>{input_text}</pre>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🧹 Cleaned Output</h2>
+            <div class="code">
+                <pre>"""
+
+            for i, line in enumerate(cleaned_lines, 1):
+                html_content += f"{i:2d}: {line}\n"
+
+            html_content += """</pre>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🚨 Detection Results</h2>"""
+
+            danger_level = max((detect_danger(line)[0] for line in cleaned_lines), default=0)
+            if danger_level >= 8:
+                html_content += f'<div class="danger-high">⚠️ NUCLEAR RISK {danger_level}/10 – DO NOT RUN</div>'
+
+            if flags:
+                html_content += '<div class="flag-list">'
+                for line_num, msg in flags:
+                    html_content += f'<div class="flag-item"><strong>Line {line_num}:</strong> {msg}</div>'
+                html_content += '</div>'
+            else:
+                html_content += '<p>No issues detected.</p>'
+
+            html_content += """
+        </div>"""
+
+            if stats:
+                html_content += f"""
+        <div class="section">
+            <h2>📈 Statistics</h2>
+            <div class="stats">"""
+                for key, value in stats.items():
+                    if not key.endswith('_time') and isinstance(value, (int, float)):
+                        html_content += f"""
+                <div class="stat-card">
+                    <h3>{value}</h3>
+                    <p>{key.replace('_', ' ').title()}</p>
+                </div>"""
+                html_content += """
+            </div>
+        </div>"""
+
+            html_content += """
+        <div class="section">
+            <h2>ℹ️ About diterm</h2>
+            <p>diterm is an AI bullshit detector and terminal sanitizer that protects against rogue AI assistants and dangerous commands.</p>
+            <p><a href="https://github.com/KHET-1/diterm-detox">View on GitHub</a></p>
+        </div>
+    </div>
+</body>
+</html>"""
+
+            with open(export_path / filename, 'w', encoding='utf-8') as f:
+                f.write(html_content)
+
+            self.console.print(f"[green]HTML report exported to: {export_path / filename}[/]")
+            if self.config:
+                self.config.stats['export_count'] += 1
+            return True
+
+        except Exception as e:
+            self.logger.error(f"Failed to export HTML: {e}")
+            self.console.print(f"[red]HTML export failed: {e}[/]")
+            return False
+
 class Config:
     """Configuration management"""
 
@@ -185,9 +358,19 @@ class Config:
             'llm_timeout': 10,
             'max_cache_size': 100,
             'line_history_size': 10,
-            'llm_model': 'llama3.1:8b'
+            'llm_model': 'llama3.1:8b',
+            'export_path': Path.home() / 'diterm_exports',
+            'enable_stats': True
         }
         self.roasts = load_roasts()
+        self.stats = {
+            'sessions_processed': 0,
+            'lines_processed': 0,
+            'detections_found': 0,
+            'llm_queries': 0,
+            'export_count': 0,
+            'start_time': None
+        }
 
     def load_from_file(self, config_path=None):
         """Load configuration from YAML file"""
@@ -218,6 +401,31 @@ class Config:
     def update_roasts(self, new_roasts):
         """Update roast patterns"""
         self.roasts = new_roasts
+
+    def update_stats(self, lines_count, detections_count, llm_count=0):
+        """Update processing statistics"""
+        if self.settings.get('enable_stats', True):
+            self.stats['sessions_processed'] += 1
+            self.stats['lines_processed'] += lines_count
+            self.stats['detections_found'] += detections_count
+            self.stats['llm_queries'] += llm_count
+
+    def get_stats(self):
+        """Get current statistics"""
+        return self.stats.copy()
+
+    def reset_stats(self):
+        """Reset statistics"""
+        for key in self.stats:
+            if key.endswith('_time'):
+                continue
+            self.stats[key] = 0
+
+    def get_export_path(self):
+        """Get export directory path"""
+        export_path = Path(self.settings.get('export_path', Path.home() / 'diterm_exports'))
+        export_path.mkdir(parents=True, exist_ok=True)
+        return export_path
 
     def get(self, key, default=None):
         return self.settings.get(key, default)
@@ -252,8 +460,11 @@ KNOWN_USER_TRAITS = [
 # Nomad Mode for solar warriors
 NOMAD_PATTERNS = [
     r"75.*amp.*battery|6.*x.*75.*battery",
-    r"210.*bucks|epever.*charge.*controller",
-    r"solar.*panel|solar.*system|off.grid",
+    r"210.*bucks|epever.*charge.*controller|victron.*controller",
+    r"solar.*panel|solar.*system|off.grid|mppt.*controller",
+    r"charge.*controller|solar.*inverter|batter(y|ies)|off.grid",
+    r"nomad|solar.*warrior|off.grid.*living",
+    r"freezing.*temp|topped.*off|battery.*maintenance",
 ]
 
 # Nuclear danger commands (expand as needed)
@@ -390,13 +601,41 @@ def guardian_flag(lines):
 def nomad_helper(lines):
     text = " ".join(lines).lower()
     if any(re.search(p, text) for p in NOMAD_PATTERNS):
-        return [
+        advice = [
             "NOMAD MODE: 6x 75Ah batteries @ $210 = killer deal (~$35 each)",
             "Total capacity: 450Ah @ 12V = 5.4 kWh nominal",
             "Quick math: At 50% DoD = ~2.7 kWh usable",
-            "Safety flag: Test each cell voltage before parallel – avoid fireworks",
-            "Earn that farm cash, boss. Gumdrop tomorrow = bags incoming"
+            "Safety flag: Test each cell voltage before parallel – avoid fireworks"
         ]
+
+        # Battery maintenance advice
+        if "battery" in text or "batteries" in text:
+            if "water" in text or "topped off" in text:
+                advice.append("BATTERY TYPE: If lead-acid/flooded, check water monthly – distilled only!")
+                advice.append("BATTERY TYPE: If AGM/Gel, sealed maintenance-free – no watering needed")
+            if "freezing" in text or "cold" in text or "temp" in text:
+                advice.append("TEMPERATURE: Lead-acid batteries hate freezing – store above 32°F")
+                advice.append("TEMPERATURE: Optimal charging: 50-85°F, derate capacity in extreme temps")
+            if "perfect" in text or "shape" in text:
+                advice.append("QUALITY CHECK: Excellent purchase! Equalize charge quarterly for longevity")
+
+        # Victron-specific advice
+        if "victron" in text:
+            advice.extend([
+                "VICTRON BONUS: Best MPPT controllers on market – worth the premium!",
+                "Victron models: MPPT 75/15 (15A), 75/10 (10A), or 100/15 (15A) for your setup",
+                "Pro tip: Get VictronConnect app for monitoring – Bluetooth enabled"
+            ])
+
+        # MPPT-specific advice
+        if "mppt" in text:
+            advice.extend([
+                "MPPT UPGRADE: 20-30% better efficiency than PWM controllers",
+                "Max input voltage: 75V models handle ~2-3 panels, 100V models handle 3-4 panels"
+            ])
+
+        advice.append("Earn that farm cash, boss. Gumdrop tomorrow = bags incoming")
+        return advice
     return []
 
 # Ollama check (fallback to regex if not running)
@@ -622,7 +861,7 @@ def flag_bullshit(lines):
     detector = Detector()
     return detector.detect_bullshit_sync(lines)
 
-def process_clipboard_mode(detector, formatter, config):
+def process_clipboard_mode(detector, formatter, config, export_json=False, export_html=False):
     """Handle clipboard/batch processing mode"""
     try:
         raw = sys.stdin.read() if not sys.stdin.isatty() else pyperclip.paste()
@@ -667,8 +906,18 @@ def process_clipboard_mode(detector, formatter, config):
     for msg in nomad_msgs:
         flags.append((0, msg))
 
+    # Update statistics
+    llm_count = sum(1 for _, msg in flags if "LLM ROAST" in msg)
+    config.update_stats(len(lines), len(flags), llm_count)
+
     # Display results
     formatter.display_detox_complete(lines, flags)
+
+    # Export if requested
+    if export_json:
+        formatter.export_json(raw, lines, flags, config.get_stats())
+    if export_html:
+        formatter.export_html(raw, lines, flags, config.get_stats())
 
     # Copy to clipboard
     try:
@@ -723,6 +972,9 @@ def main():
     parser.add_argument('--unison', action='store_true', help="Unison mode: pipe full chat logs for AI-watcher overlay + terminal detox")
     parser.add_argument('--verbose', '-v', action='store_true', help="Enable verbose logging")
     parser.add_argument('--update', action='store_true', help="Pull latest community roast patterns from GitHub")
+    parser.add_argument('--export-json', action='store_true', help="Export results to JSON format")
+    parser.add_argument('--export-html', action='store_true', help="Export results to HTML format")
+    parser.add_argument('--stats', action='store_true', help="Show usage statistics")
     args = parser.parse_args()
 
     # Configure logging
@@ -734,6 +986,16 @@ def main():
     if args.update:
         update_roasts_from_github()
         return  # Exit after update
+
+    # Handle stats flag
+    if args.stats:
+        config = Config()
+        stats = config.get_stats()
+        console.print(Panel("diterm Usage Statistics", style="bold blue"))
+        for key, value in stats.items():
+            if not key.endswith('_time'):
+                console.print(f"{key.replace('_', ' ').title()}: {value}")
+        return
 
     # Initialize components
     try:
@@ -749,7 +1011,7 @@ def main():
         elif args.unison:
             process_unison_mode(detector, formatter)
         else:
-            process_clipboard_mode(detector, formatter, config)
+            process_clipboard_mode(detector, formatter, config, args.export_json, args.export_html)
 
     except Exception as e:
         logger.critical(f"Critical error in main: {e}")
