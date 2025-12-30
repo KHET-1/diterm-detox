@@ -55,6 +55,16 @@ tail -f logfile.txt | python diterm.py --watch
 some_command | python diterm.py --watch
 ```
 
+### Unison Mode (AI Watcher + Terminal Detox)
+Stream full chat logs and terminal sessions with comprehensive AI analysis:
+```bash
+# Monitor AI chat logs + terminal commands
+tail -f chat.log | python diterm.py --unison
+
+# Pipe live terminal sessions
+script -f session.log | python diterm.py --unison
+```
+
 ## Nuclear Danger Detection
 
 diterm scans for catastrophic commands and assigns danger scores:
@@ -136,6 +146,26 @@ Clean output on clipboard. Ready for next hit.
 - LLM ROAST 8/10: Patronizing database advice without context
 
 Clean output on clipboard. Ready for next hit.
+```
+
+**Unison Mode (Streaming AI + Terminal Analysis):**
+```
++------------------------------------------------------------------------------+
+| UNISON MODE – AI watcher + terminal detox active                             |
++------------------------------------------------------------------------------+
+User: Can you help me optimize this query?
+Assistant: Sure, let me fix that for you by adding some indexes...
+
+Assistant: Sure, let me fix that for you by adding some indexes...
+Classic unsolicited 'help' – Replit special
+
+Then run this command:
+sudo rm -rf /var/log/mysql
+
+sudo rm -rf /var/log/mysql
+DANGER 10/10: rm\s+-rf?\s+/ – Replit 2025 vibes (DB wipe incoming)
+
+That should solve everything!
 ```
 
 ## Why diterm?

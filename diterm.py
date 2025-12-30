@@ -120,6 +120,7 @@ def flag_bullshit(lines):
 def main():
     parser = argparse.ArgumentParser(description="Diterm: Detox terminal garbage & flag AI bullshit")
     parser.add_argument('--watch', action='store_true', help="Live watch stdin")
+    parser.add_argument('--unison', action='store_true', help="Unison mode: pipe full chat logs for AI-watcher overlay + terminal detox")
     args = parser.parse_args()
 
     if args.watch:
@@ -128,6 +129,17 @@ def main():
             cleaned = clean_text(line.rstrip('\n'))
             console.print(cleaned)
             flags = flag_bullshit([cleaned])
+            for _, msg in flags:
+                console.print(Text(msg, style="bold white on red"))
+    elif args.unison:
+        console.print(Panel("UNISON MODE – AI watcher + terminal detox active", style="bold magenta"))
+        for line in sys.stdin:
+            cleaned = clean_text(line)
+            console.print(cleaned)
+
+            # Run all detectors (bullshit patterns, danger, LLM)
+            flags = flag_bullshit([cleaned])
+
             for _, msg in flags:
                 console.print(Text(msg, style="bold white on red"))
     else:
