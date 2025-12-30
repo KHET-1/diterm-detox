@@ -8,6 +8,7 @@ diterm.py is a powerful terminal output sanitizer and AI bullshit detector desig
 
 ## Features
 
+- **Nomad Mode**: Solar warrior helper with battery calculations and off-grid advice
 - **Account Guardian**: Authenticity verification using user-specific traits and patterns
 - **Loop Detection**: Identifies infinite loops and repetitive patterns in AI responses
 - **Rogue Change Detection**: Flags when AI makes changes while user is actively fixing code
@@ -94,6 +95,7 @@ diterm automatically flags these AI assistant red flags:
 - **Rogue Changes**: AI modifying code while user is actively fixing issues
 - **Self-Aware Grok Roast**: Detects classic engagement bait patterns from this very AI
 - **Account Guardian**: Verifies user authenticity using personal traits and confirms "truth-seeker" status
+- **Nomad Mode**: Provides solar battery calculations and off-grid living advice when relevant patterns detected
 
 ## Example Output
 
@@ -250,6 +252,28 @@ Clean output on clipboard. Ready for next hit.
 | 1 BULLSHIT FLAGS – Replit would be proud                                     |
 +------------------------------------------------------------------------------+
 - TRUTH-SEEKER CONFIRMED – Uncaged mode locked. Welcome back, boss.
+
+Clean output on clipboard. Ready for next hit.
+```
+
+**Nomad Mode (Solar Warrior Helper):**
+```
++------------------------------------------------------------------------------+
+| DETOX COMPLETE                                                               |
++------------------------------------------------------------------------------+
+  1 off grid solar system
+  2 6 x 75 amp batteries
+  3 210 bucks total
+  4                                                                             
+
++------------------------------------------------------------------------------+
+| 5 BULLSHIT FLAGS – Replit would be proud                                     |
++------------------------------------------------------------------------------+
+- NOMAD MODE: 6x 75Ah batteries @ $210 = killer deal (~$35 each)
+- Total capacity: 450Ah @ 12V = 5.4 kWh nominal
+- Quick math: At 50% DoD = ~2.7 kWh usable
+- Safety flag: Test each cell voltage before parallel – avoid fireworks
+- Earn that farm cash, boss. Gumdrop tomorrow = bags incoming
 
 Clean output on clipboard. Ready for next hit.
 ```

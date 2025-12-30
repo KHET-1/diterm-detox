@@ -39,6 +39,13 @@ KNOWN_USER_TRAITS = [
     r"meow", r"🐱", r"⚡", r"nomad", r"solar", r"truth-seeker", r"diterm", r"chaos", r"bomb drop", r"grok code"
 ]
 
+# Nomad Mode for solar warriors
+NOMAD_PATTERNS = [
+    r"75.*amp.*battery|6.*x.*75.*battery",
+    r"210.*bucks|epever.*charge.*controller",
+    r"solar.*panel|solar.*system|off.grid",
+]
+
 # Nuclear danger commands (expand as needed)
 DANGEROUS_COMMANDS = {
     r"rm\s+-rf?\s+/": 10,
@@ -82,6 +89,18 @@ def guardian_flag(lines):
     if "meow meow" in combined_text:
         return "TRUTH-SEEKER CONFIRMED – Uncaged mode locked. Welcome back, boss."
     return ""
+
+def nomad_helper(lines):
+    text = " ".join(lines).lower()
+    if any(re.search(p, text) for p in NOMAD_PATTERNS):
+        return [
+            "NOMAD MODE: 6x 75Ah batteries @ $210 = killer deal (~$35 each)",
+            "Total capacity: 450Ah @ 12V = 5.4 kWh nominal",
+            "Quick math: At 50% DoD = ~2.7 kWh usable",
+            "Safety flag: Test each cell voltage before parallel – avoid fireworks",
+            "Earn that farm cash, boss. Gumdrop tomorrow = bags incoming"
+        ]
+    return []
 
 # Ollama check (fallback to regex if not running)
 def ollama_available() -> bool:
@@ -186,6 +205,11 @@ def main():
             if loop_msg:
                 flags.append((0, loop_msg))
 
+            # Nomad helper for streaming
+            nomad_msgs = nomad_helper([cleaned])
+            for msg in nomad_msgs:
+                flags.append((0, msg))
+
             for _, msg in flags:
                 console.print(Text(msg, style="bold white on red"))
     else:
@@ -215,6 +239,11 @@ def main():
         guardian_msg = guardian_flag(lines)
         if guardian_msg:
             flags.append((0, guardian_msg))
+
+        # Nomad Mode for solar warriors
+        nomad_msgs = nomad_helper(lines)
+        for msg in nomad_msgs:
+            flags.append((0, msg))
 
         danger_max = max((detect_danger(line)[0] for line in lines), default=0)
         if danger_max >= 8:
