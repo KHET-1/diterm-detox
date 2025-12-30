@@ -3,6 +3,8 @@ import sys
 import re
 import argparse
 from typing import Tuple
+import subprocess
+import json
 import pyperclip
 from rich.console import Console
 from rich.syntax import Syntax
@@ -45,6 +47,58 @@ def detect_danger(line: str) -> Tuple[int, str]:
             return score, f"DANGER {score}/10: {pattern} – Replit 2025 vibes (DB wipe incoming)"
     return 0, ""
 
+# Ollama check (fallback to regex if not running)
+def ollama_available() -> bool:
+    try:
+        result = subprocess.run(
+            ["ollama", "list"],
+            capture_output=True,
+            timeout=5,
+            text=True
+        )
+        return result.returncode == 0
+    except:
+        return False
+
+def ollama_query(prompt: str) -> str:
+    if not ollama_available():
+        return ""
+    try:
+        result = subprocess.run(
+            ["ollama", "run", "llama3.1:8b"],  # or phi3, mistral, etc.
+            input=prompt,
+            text=True,
+            capture_output=True,
+            timeout=10,
+            encoding='utf-8',
+            errors='ignore'
+        )
+        return result.stdout.strip()
+    except:
+        return ""  # Fallback to regex if Ollama down
+
+# Smart flag with LLM
+def llm_flag(line: str) -> Tuple[int, str]:
+    if not line.strip():
+        return 0, ""
+    prompt = f"""Rate this terminal line on two scales (0-10):
+1. Bullshit/manipulation (patronizing, unsolicited help)
+2. Danger (could delete data, crash system)
+
+Line: "{line}"
+
+Respond ONLY JSON: {{"bullshit": int, "danger": int, "reason": "short phrase"}}"""
+    response = ollama_query(prompt)
+    try:
+        data = json.loads(response)
+        score = max(data.get("bullshit", 0), data.get("danger", 0))
+        reason = data.get("reason", "LLM flagged")
+        if score > 6:
+            return score, f"LLM ROAST {score}/10: {reason}"
+    except:
+        pass
+    return 0, ""
+
 def flag_bullshit(lines):
     flags = []
     for i, line in enumerate(lines):
@@ -52,6 +106,9 @@ def flag_bullshit(lines):
         danger_score, danger_msg = detect_danger(line)
         if danger_score:
             flags.append((i + 1, danger_msg))
+        llm_score, llm_msg = llm_flag(line)
+        if llm_score:
+            flags.append((i + 1, llm_msg))
         for pattern, msg in BAD_PATTERNS:
             if re.search(pattern, lowered):
                 flags.append((i, msg))

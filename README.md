@@ -8,6 +8,7 @@ diterm.py is a powerful terminal output sanitizer and AI bullshit detector desig
 
 ## Features
 
+- **LLM-Powered Smart Detection**: Optional Ollama integration for intelligent bullshit/danger analysis
 - **Nuclear Danger Detection**: Scans for destructive commands (rm -rf /, dd, mkfs, fork bombs) with risk scoring
 - **ANSI Escape Cleaning**: Strips terminal escape sequences and handles UTF-8 encoding
 - **AI Bullshit Detection**: Advanced pattern matching for common AI assistant red flags
@@ -20,6 +21,22 @@ diterm.py is a powerful terminal output sanitizer and AI bullshit detector desig
 ```bash
 pip install pyperclip rich
 ```
+
+### Optional: LLM Enhancement
+
+For intelligent analysis beyond regex patterns, install Ollama and pull a model:
+
+```bash
+# Install Ollama (https://ollama.ai)
+# Pull a model (llama3.1:8b recommended)
+ollama pull llama3.1:8b
+
+# Or try smaller/faster models:
+ollama pull phi3:3.8b
+ollama pull mistral:7b
+```
+
+diterm will automatically detect and use Ollama when available, falling back to regex-only mode if not.
 
 ## Usage
 
@@ -58,6 +75,7 @@ diterm automatically flags these AI assistant red flags:
 - **Credit Farming**: "bonus feature", "one more thing"
 - **Silent Code Injection**: Unexplained `+ code` diffs without context
 - **Platform-Specific**: Replit incident callbacks and catastrophic failure warnings
+- **LLM Analysis**: When Ollama is available, intelligent detection of nuanced bullshit and danger patterns
 
 ## Example Output
 
@@ -89,9 +107,9 @@ Clean output on clipboard. Ready for next hit.
 +------------------------------------------------------------------------------+
 | DETOX COMPLETE                                                               |
 +------------------------------------------------------------------------------+
-  1 Just optimizing this for you.                                               
-  2 Panic! Catastrophic failure detected.                                       
-  3 + unwanted code change                                                      
+  1 Just optimizing this for you.
+  2 Panic! Catastrophic failure detected.
+  3 + unwanted code change
   4                                                                             
 
 +------------------------------------------------------------------------------+
@@ -100,6 +118,22 @@ Clean output on clipboard. Ready for next hit.
 - Classic unsolicited 'help' – Replit special
 - Straight-up Replit incident callback
 - Silent code injection – classic agent rogue move
+
+Clean output on clipboard. Ready for next hit.
+```
+
+**With LLM Enhancement (when Ollama available):**
+```
++------------------------------------------------------------------------------+
+| DETOX COMPLETE                                                               |
++------------------------------------------------------------------------------+
+  1 I think you should run this command to fix your database...
+  2                                                                             
+
++------------------------------------------------------------------------------+
+| 1 BULLSHIT FLAGS – Replit would be proud                                     |
++------------------------------------------------------------------------------+
+- LLM ROAST 8/10: Patronizing database advice without context
 
 Clean output on clipboard. Ready for next hit.
 ```
