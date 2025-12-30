@@ -290,6 +290,15 @@ def load_roasts():
                 data = json.load(f)
                 logger.info(f"Loaded custom roasts from {ROAST_FILE}")
                 return data
+    except UnicodeDecodeError as e:
+        logger.warning(f"Encoding error loading roasts, trying without encoding: {e}")
+        try:
+            with open(ROAST_FILE, 'r') as f:
+                data = json.load(f)
+                logger.info(f"Loaded custom roasts from {ROAST_FILE} (fallback encoding)")
+                return data
+        except Exception as e2:
+            logger.error(f"Failed to load custom roasts with fallback: {e2}")
     except Exception as e:
         logger.warning(f"Error loading custom roasts: {e}")
 
