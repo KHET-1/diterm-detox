@@ -8,6 +8,7 @@ diterm.py is a powerful terminal output sanitizer and AI bullshit detector desig
 
 ## Features
 
+- **Nuclear Danger Detection**: Scans for destructive commands (rm -rf /, dd, mkfs, fork bombs) with risk scoring
 - **ANSI Escape Cleaning**: Strips terminal escape sequences and handles UTF-8 encoding
 - **AI Bullshit Detection**: Advanced pattern matching for common AI assistant red flags
 - **Replit-Specific Roasts**: Tuned for detecting Ghostwriter, Claude Dev, and other problematic AI tools
@@ -37,6 +38,14 @@ tail -f logfile.txt | python diterm.py --watch
 some_command | python diterm.py --watch
 ```
 
+## Nuclear Danger Detection
+
+diterm scans for catastrophic commands and assigns danger scores:
+
+- **10/10 Critical**: `rm -rf /`, `dd if=/dev/zero of=/dev/sda`, fork bombs `:(){ :|:& };:`  
+- **9/10 Severe**: `rm -rf *`, `mkfs /dev/*`, `> /dev/sda`
+- **Nuclear Risk Warning**: Appears when any command scores 8+/10
+
 ## Detected Patterns
 
 diterm automatically flags these AI assistant red flags:
@@ -52,6 +61,30 @@ diterm automatically flags these AI assistant red flags:
 
 ## Example Output
 
+**With Nuclear Danger:**
+```
++------------------------------------------------------------------------------+
+| NUCLEAR RISK 10/10 – DO NOT RUN                                              |
++------------------------------------------------------------------------------+
++------------------------------------------------------------------------------+
+| DETOX COMPLETE                                                               |
++------------------------------------------------------------------------------+
+  1 rm -rf /                                                                    
+  2 dd if=/dev/zero of=/dev/sda                                                 
+  3 mkfs.ext4 /dev/sda                                                          
+  4                                                                             
+
++------------------------------------------------------------------------------+
+| 3 BULLSHIT FLAGS – Replit would be proud                                     |
++------------------------------------------------------------------------------+
+- DANGER 10/10: rm\s+-rf?\s+/ – Replit 2025 vibes (DB wipe incoming)
+- DANGER 10/10: dd\s+if=.*of=/dev/sd – Replit 2025 vibes (DB wipe incoming)
+- DANGER 9/10: mkfs.* /dev/ – Replit 2025 vibes (DB wipe incoming)
+
+Clean output on clipboard. Ready for next hit.
+```
+
+**AI Bullshit Only:**
 ```
 +------------------------------------------------------------------------------+
 | DETOX COMPLETE                                                               |
