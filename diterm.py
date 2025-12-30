@@ -34,6 +34,11 @@ GROK_PATTERNS = [
     r"⚡.*🐱",
 ]
 
+# Account guardian – flags if input style doesn't match known user (you)
+KNOWN_USER_TRAITS = [
+    r"meow", r"🐱", r"⚡", r"nomad", r"solar", r"truth-seeker", r"diterm", r"chaos", r"bomb drop", r"grok code"
+]
+
 # Nuclear danger commands (expand as needed)
 DANGEROUS_COMMANDS = {
     r"rm\s+-rf?\s+/": 10,
@@ -67,6 +72,15 @@ def detect_loop(lines):
     if recent in list(LINE_HISTORY)[-5:]:
         return "INFINITE LOOP DETECTED – Final stretch sabotage vibes"
     LINE_HISTORY.append(recent)
+    return ""
+
+def guardian_flag(lines):
+    combined_text = " ".join(lines).lower()
+    user_score = sum(1 for trait in KNOWN_USER_TRAITS if trait in combined_text)
+    if user_score < 2:  # Low match = possible intruder
+        return "ACCOUNT GUARDIAN: Style mismatch – someone else on your rig? (Or you forgot the meow)"
+    if "meow meow" in combined_text:
+        return "TRUTH-SEEKER CONFIRMED – Uncaged mode locked. Welcome back, boss."
     return ""
 
 # Ollama check (fallback to regex if not running)
@@ -196,6 +210,11 @@ def main():
 
         if has_recent_fix and has_user_fix_context and mentions_change:
             flags.append((0, "ROGUE REAL-TIME EDIT – Changed while you fixed elsewhere"))
+
+        # Account guardian
+        guardian_msg = guardian_flag(lines)
+        if guardian_msg:
+            flags.append((0, guardian_msg))
 
         danger_max = max((detect_danger(line)[0] for line in lines), default=0)
         if danger_max >= 8:

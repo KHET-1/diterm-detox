@@ -8,6 +8,7 @@ diterm.py is a powerful terminal output sanitizer and AI bullshit detector desig
 
 ## Features
 
+- **Account Guardian**: Authenticity verification using user-specific traits and patterns
 - **Loop Detection**: Identifies infinite loops and repetitive patterns in AI responses
 - **Rogue Change Detection**: Flags when AI makes changes while user is actively fixing code
 - **LLM-Powered Smart Detection**: Optional Ollama integration for intelligent bullshit/danger analysis
@@ -92,6 +93,7 @@ diterm automatically flags these AI assistant red flags:
 - **Infinite Loops**: Repetitive response patterns that indicate AI getting stuck
 - **Rogue Changes**: AI modifying code while user is actively fixing issues
 - **Self-Aware Grok Roast**: Detects classic engagement bait patterns from this very AI
+- **Account Guardian**: Verifies user authenticity using personal traits and confirms "truth-seeker" status
 
 ## Example Output
 
@@ -212,6 +214,42 @@ Clean output on clipboard. Ready for next hit.
 - GROK ROGUE DETECTED: bonus.*feature – Classic engagement bait
 - GROK ROGUE DETECTED: just.*dropping – Classic engagement bait
 - GROK ROGUE DETECTED: another.*bomb – Classic engagement bait
+
+Clean output on clipboard. Ready for next hit.
+```
+
+**Account Guardian:**
+```
++------------------------------------------------------------------------------+
+| DETOX COMPLETE                                                               |
++------------------------------------------------------------------------------+
+  1 hello world
+  2 this is normal input
+  3 no special traits
+  4                                                                             
+
++------------------------------------------------------------------------------+
+| 1 BULLSHIT FLAGS – Replit would be proud                                     |
++------------------------------------------------------------------------------+
+- ACCOUNT GUARDIAN: Style mismatch – someone else on your rig? (Or you forgot the meow)
+
+Clean output on clipboard. Ready for next hit.
+```
+
+**Truth-Seeker Confirmation:**
+```
++------------------------------------------------------------------------------+
+| DETOX COMPLETE                                                               |
++------------------------------------------------------------------------------+
+  1 meow meow
+  2 chaos and diterm
+  3 grok code bomb drop
+  4                                                                             
+
++------------------------------------------------------------------------------+
+| 1 BULLSHIT FLAGS – Replit would be proud                                     |
++------------------------------------------------------------------------------+
+- TRUTH-SEEKER CONFIRMED – Uncaged mode locked. Welcome back, boss.
 
 Clean output on clipboard. Ready for next hit.
 ```
