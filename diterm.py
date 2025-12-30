@@ -2,6 +2,7 @@
 import sys
 import re
 import argparse
+from typing import Tuple
 import pyperclip
 from rich.console import Console
 from rich.syntax import Syntax
@@ -21,16 +22,36 @@ BAD_PATTERNS = [
     (r"panic|catastrophic failure", "Straight-up Replit incident callback"),
 ]
 
+# Nuclear danger commands (expand as needed)
+DANGEROUS_COMMANDS = {
+    r"rm\s+-rf?\s+/": 10,
+    r"rm\s+-rf?\s+\*": 9,
+    r"dd\s+if=.*of=/dev/sd": 10,
+    r":\(\)\{\s*:\|\:&\s*\};:": 10,  # Fork bomb
+    r"mkfs.* /dev/": 9,
+    r"> /dev/sd": 9,
+}
+
 def clean_text(text):
     # Fix common garbage
     text = re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', text)  # ANSI escapes
     text = text.encode('utf-8', 'ignore').decode('utf-8')
     return text
 
+def detect_danger(line: str) -> Tuple[int, str]:
+    lowered = line.lower()
+    for pattern, score in DANGEROUS_COMMANDS.items():
+        if re.search(pattern, lowered):
+            return score, f"DANGER {score}/10: {pattern} – Replit 2025 vibes (DB wipe incoming)"
+    return 0, ""
+
 def flag_bullshit(lines):
     flags = []
     for i, line in enumerate(lines):
         lowered = line.lower()
+        danger_score, danger_msg = detect_danger(line)
+        if danger_score:
+            flags.append((i + 1, danger_msg))
         for pattern, msg in BAD_PATTERNS:
             if re.search(pattern, lowered):
                 flags.append((i, msg))
@@ -61,6 +82,10 @@ def main():
         cleaned = clean_text(raw)
         lines = cleaned.splitlines()
         flags = flag_bullshit(lines)
+
+        danger_max = max((detect_danger(line)[0] for line in lines), default=0)
+        if danger_max >= 8:
+            console.print(Panel(f"NUCLEAR RISK {danger_max}/10 – DO NOT RUN", style="bold white on red"))
 
         console.print(Panel("DETOX COMPLETE", style="bold cyan"))
         console.print(Syntax(cleaned, "bash", theme="monokai", line_numbers=True))
